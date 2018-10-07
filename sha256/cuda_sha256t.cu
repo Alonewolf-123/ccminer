@@ -417,6 +417,20 @@ void sha256t_gpu_hash_shared(const uint32_t threads, const uint32_t startNonce, 
 
 		sha256_round_body(dat, buf, s_K);
 
+		// third sha256
+
+		#pragma unroll
+		for (int i=0; i<8; i++) dat[i] = buf[i];
+		dat[8] = 0x80000000;
+		#pragma unroll
+		for (int i=9; i<15; i++) dat[i] = 0;
+		dat[15] = 0x100;
+
+		#pragma unroll
+		for (int i=0; i<8; i++) buf[i] = c_H256[i];
+
+		sha256_round_body(dat, buf, s_K);
+		
 		// last sha256
 
 		#pragma unroll
