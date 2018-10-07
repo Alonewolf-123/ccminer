@@ -20,6 +20,10 @@ extern "C" void sha256t_hash(void *output, const void *input)
 	SHA256_Init(&sha256);
 	SHA256_Update(&sha256, hash, 32);
 	SHA256_Final(hash, &sha256);
+	
+	SHA256_Init(&sha256);
+	SHA256_Update(&sha256, hash, 32);
+	SHA256_Final(hash, &sha256);
 
 	SHA256_Init(&sha256);
 	SHA256_Update(&sha256, hash, 32);
